@@ -1,26 +1,75 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  /*
+    Gilroy 为商用字体，需自行放入 public/fonts 后在下方取消注释 @font-face。
+    未加载文件前：浏览器会跳过不存在的 Gilroy，沿用 var(--font-geist-sans) 与后续系统字体。
+  */
+  --font-gilroy-stack: "Gilroy", var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
+
+/* 将 Gilroy 可变字体或 Regular/Semibold 等 woff2 放到 public/fonts 后按需启用
+@font-face {
+  font-family: "Gilroy";
+  src: url("/fonts/Gilroy-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+*/
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-gilroy-stack);
   --font-mono: var(--font-geist-mono);
 }
 
+/* Quiz funnel targets light reference UI; avoid OS dark theme flipping vars */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  html:not(.light) {
+    --background: #0f172a;
+    --foreground: #e2e8f0;
   }
+}
+
+html.light {
+  color-scheme: light;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-gilroy-stack);
+}
+
+/* Hide native number spin buttons while keeping wheel-step behavior */
+input.no-spin::-webkit-outer-spin-button,
+input.no-spin::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input.no-spin[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Recharts：点击时浏览器会给 wrapper/SVG 画焦点环（常见为黑/灰框），用样式 + 组件内 mousedown 一并压住 */
+.step-report-chart {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.step-report-chart .recharts-wrapper,
+.step-report-chart .recharts-surface,
+.step-report-chart .recharts-wrapper:focus,
+.step-report-chart .recharts-wrapper:focus-visible,
+.step-report-chart .recharts-wrapper:focus-within,
+.step-report-chart .recharts-surface:focus,
+.step-report-chart .recharts-surface:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
 }
