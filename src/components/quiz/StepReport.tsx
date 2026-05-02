@@ -55,7 +55,7 @@ export function StepReport({ report, unit, onOpenPaywall, onRestart }: StepRepor
       : report.targetDateLabel;
 
   return (
-    <section className="relative min-h-screen bg-white pb-28 text-[#171717]">
+    <section className="relative min-h-screen bg-white pb-[calc(90px+env(safe-area-inset-bottom,0px))] text-[#171717]">
       <div className="mx-auto w-full max-w-lg px-5 pt-6 sm:max-w-xl sm:px-6 sm:pt-8">
         <div className="text-center">
           <h1 className="text-[1.25rem] font-semibold leading-snug tracking-tight text-[#171717] sm:text-[1.375rem] md:text-[1.75rem]">
@@ -222,8 +222,8 @@ export function StepReport({ report, unit, onOpenPaywall, onRestart }: StepRepor
         </div>
       </div>
 
-      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-[rgba(23,23,23,0.12)] bg-white px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] shadow-[0_-4px_24px_-12px_rgba(23,23,23,0.06)]">
-        <div className="mx-auto grid min-h-[52px] w-full max-w-lg grid-cols-[minmax(0,4.5rem)_1fr_minmax(0,4.5rem)] items-center gap-2 sm:max-w-xl">
+      <div className="fixed inset-x-0 bottom-0 z-20 flex h-[calc(90px+env(safe-area-inset-bottom,0px))] items-center border-t border-[rgba(23,23,23,0.12)] bg-white px-4 shadow-[0_-4px_24px_-12px_rgba(23,23,23,0.06)]">
+        <div className="mx-auto grid w-full max-w-lg grid-cols-[minmax(0,4.5rem)_1fr_minmax(0,4.5rem)] items-center gap-2 sm:max-w-xl">
           <button
             type="button"
             className="justify-self-start rounded-full px-1 py-2 text-left text-sm text-[rgba(23,23,23,0.45)] transition hover:text-[rgba(23,23,23,0.65)]"
@@ -234,7 +234,7 @@ export function StepReport({ report, unit, onOpenPaywall, onRestart }: StepRepor
           <button
             type="button"
             onClick={onOpenPaywall}
-            className="justify-self-center w-max min-h-[52px] rounded-full bg-[#5865A6] px-8 py-3.5 text-[13px] font-semibold uppercase tracking-[0.08em] text-white shadow-[0_8px_24px_-8px_rgba(88,101,166,0.55)] transition hover:bg-[#4d5a94] active:scale-[0.98] sm:px-12 sm:text-sm"
+            className="justify-self-center w-max rounded-full bg-[#485AA3] px-10 py-2.5 text-[17px] font-semibold uppercase tracking-[0.06em] text-white transition hover:bg-[#3f4f92] active:scale-[0.98]"
           >
             Continue
           </button>
