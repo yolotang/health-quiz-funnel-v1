@@ -271,7 +271,7 @@ export function StepBodyData({ data, mode, onUpdate, onNext }: StepBodyDataProps
       </div>
 
       {/* BetterMe-style: fixed bottom strip, centered pill CTA (not full-width) */}
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[90] flex justify-center bg-gradient-to-t from-white from-35% via-white/90 to-transparent px-4 pt-12 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[90] flex justify-center border-t border-[rgba(23,23,23,0.12)] bg-white px-4 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-[0_-4px_24px_-12px_rgba(23,23,23,0.06)]">
         <button
           type="button"
           onClick={onNext}

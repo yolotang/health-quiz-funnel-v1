@@ -1,5 +1,4 @@
 import { OptionCard } from "@/components/common/OptionCard";
-import { PrimaryButton } from "@/components/common/PrimaryButton";
 import {
   CoffeeOutlined,
   ThunderboltOutlined,
@@ -20,7 +19,7 @@ export function StepWorkoutFrequency({
   onNext,
 }: StepWorkoutFrequencyProps) {
   return (
-    <section className="space-y-6">
+    <section className="relative space-y-6 pb-[calc(6rem+env(safe-area-inset-bottom))] sm:pb-[calc(6.5rem+env(safe-area-inset-bottom))]">
       <div>
         <h1 className="text-center text-[1.625rem] font-semibold leading-tight tracking-[-0.02em] text-[rgb(23,23,23)] sm:text-[2rem] md:text-[40px] md:leading-[1.15]">
           How often do you workout?
@@ -59,10 +58,15 @@ export function StepWorkoutFrequency({
         />
       </div>
 
-      <div className="flex justify-center">
-        <PrimaryButton onClick={onNext} disabled={!value}>
-          Start Analysis
-        </PrimaryButton>
+      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[90] flex justify-center border-t border-[rgba(23,23,23,0.12)] bg-white px-4 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-[0_-4px_24px_-12px_rgba(23,23,23,0.06)]">
+        <button
+          type="button"
+          onClick={onNext}
+          disabled={!value}
+          className="pointer-events-auto w-max min-h-[52px] rounded-full bg-[#5865A6] px-8 py-3.5 text-[13px] font-semibold uppercase tracking-[0.08em] text-white shadow-[0_8px_24px_-8px_rgba(88,101,166,0.55)] transition enabled:hover:bg-[#4d5a94] enabled:active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40 sm:px-12 sm:text-sm"
+        >
+          Start analysis
+        </button>
       </div>
     </section>
   );

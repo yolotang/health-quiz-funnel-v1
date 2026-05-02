@@ -129,16 +129,7 @@ export function StepAnalyzing({ startedAt }: StepAnalyzingProps) {
               {pct}
               <span className="text-lg font-semibold text-[rgba(72,90,163,0.75)]">%</span>
             </span>
-            <span className="mt-0.5 text-[11px] font-medium text-[rgba(23,23,23,0.4)]">Progress</span>
           </div>
-        </div>
-
-        <div className="mt-8 h-2.5 overflow-hidden rounded-full bg-[rgba(23,23,23,0.08)]">
-          <motion.div
-            className="h-full rounded-full bg-gradient-to-r from-[#485AA3] via-[#5b6fc4] to-sky-400"
-            animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.1, ease: "linear" }}
-          />
         </div>
 
         <AnimatePresence mode="wait">
@@ -148,7 +139,7 @@ export function StepAnalyzing({ startedAt }: StepAnalyzingProps) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.28 }}
-            className="mt-5 min-h-[1.5rem] text-sm text-[rgba(23,23,23,0.62)]"
+            className="mt-8 min-h-[1.5rem] text-sm text-[rgba(23,23,23,0.62)]"
           >
             {messages[index]}
           </motion.p>

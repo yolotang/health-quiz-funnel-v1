@@ -9,7 +9,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { PrimaryButton } from "@/components/common/PrimaryButton";
 import { kgToLb } from "@/lib/units";
 import type { ReportData, UnitSystem } from "@/types/quiz";
 
@@ -223,21 +222,23 @@ export function StepReport({ report, unit, onOpenPaywall, onRestart }: StepRepor
         </div>
       </div>
 
-      <div className="fixed inset-x-0  border-t border-[rgba(23,23,23,0.08)] bottom-0 z-20 bg-white px-4 py-4">
-        <div className="mx-auto flex w-full max-w-lg items-center gap-3 sm:max-w-xl">
+      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-[rgba(23,23,23,0.12)] bg-white px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] shadow-[0_-4px_24px_-12px_rgba(23,23,23,0.06)]">
+        <div className="mx-auto grid min-h-[52px] w-full max-w-lg grid-cols-[minmax(0,4.5rem)_1fr_minmax(0,4.5rem)] items-center gap-2 sm:max-w-xl">
           <button
             type="button"
-            className="shrink-0 rounded-full px-2 py-2.5 text-sm text-[rgba(23,23,23,0.45)] transition hover:text-[rgba(23,23,23,0.65)]"
+            className="justify-self-start rounded-full px-1 py-2 text-left text-sm text-[rgba(23,23,23,0.45)] transition hover:text-[rgba(23,23,23,0.65)]"
             onClick={onRestart}
           >
             Restart
           </button>
-          <PrimaryButton
+          <button
+            type="button"
             onClick={onOpenPaywall}
-            className="rounded-full py-3.5 text-base font-semibold shadow-none hover:translate-y-0 hover:bg-[#3f4f92]"
+            className="justify-self-center w-max min-h-[52px] rounded-full bg-[#5865A6] px-8 py-3.5 text-[13px] font-semibold uppercase tracking-[0.08em] text-white shadow-[0_8px_24px_-8px_rgba(88,101,166,0.55)] transition hover:bg-[#4d5a94] active:scale-[0.98] sm:px-12 sm:text-sm"
           >
-            CONTINUE
-          </PrimaryButton>
+            Continue
+          </button>
+          <span className="min-w-0" aria-hidden />
         </div>
       </div>
     </section>
