@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { TopNav } from "@/components/common/TopNav";
 import { StepAnalyzing } from "@/components/quiz/StepAnalyzing";
@@ -363,18 +362,10 @@ export default function Home() {
         className={`relative mx-auto w-full ${isAnalyzingStep ? "max-w-full" : isReportStep ? "max-w-5xl" : "mt-6 max-w-[552px]"
           }`}
       >
-        {/* Opacity-only: `y`/`scale` add `transform` on this ancestor and break `position:fixed` footers inside steps */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentStep}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.28, ease: "easeOut" }}
-          >
-            {stepContent}
-          </motion.div>
-        </AnimatePresence>
+        {/* 只用 opacity 动画、不用 transform，避免 fixed 底栏被「困」在动画层里 */}
+        <div key={currentStep} className="quiz-step-enter">
+          {stepContent}
+        </div>
       </main>
 
       <SubscriptionModal open={paywallOpen} onClose={() => setPaywallOpen(false)} />

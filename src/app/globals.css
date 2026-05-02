@@ -46,6 +46,26 @@ body {
   font-family: var(--font-gilroy-stack);
 }
 
+/* Step switch: opacity only — no transform, so position:fixed footers stay viewport-locked */
+@keyframes quiz-step-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.quiz-step-enter {
+  animation: quiz-step-enter 0.28s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quiz-step-enter {
+    animation: none;
+  }
+}
+
 /* Hide native number spin buttons while keeping wheel-step behavior */
 input.no-spin::-webkit-outer-spin-button,
 input.no-spin::-webkit-inner-spin-button {

@@ -1,7 +1,6 @@
 "use client";
 
 import { useId, useState } from "react";
-import { QuizBottomActionPortal } from "@/components/common/QuizBottomActionPortal";
 import {
   Area,
   AreaChart,
@@ -223,27 +222,25 @@ export function StepReport({ report, unit, onOpenPaywall, onRestart }: StepRepor
         </div>
       </div>
 
-      <QuizBottomActionPortal>
-        <div className="fixed inset-x-0 bottom-0 z-20 flex h-[calc(90px+env(safe-area-inset-bottom,0px))] items-center border-t border-[rgba(23,23,23,0.12)] bg-white px-4 shadow-[0_-4px_24px_-12px_rgba(23,23,23,0.06)]">
-          <div className="mx-auto grid w-full max-w-lg grid-cols-[minmax(0,4.5rem)_1fr_minmax(0,4.5rem)] items-center gap-2 sm:max-w-xl">
-            <button
-              type="button"
-              className="justify-self-start rounded-full px-1 py-2 text-left text-sm text-[rgba(23,23,23,0.45)] transition hover:text-[rgba(23,23,23,0.65)]"
-              onClick={onRestart}
-            >
-              Restart
-            </button>
-            <button
-              type="button"
-              onClick={onOpenPaywall}
-              className="justify-self-center flex h-[50px] w-[min(239px,calc(100vw-2rem))] items-center justify-center rounded-[25px] bg-[#485AA3] text-[17px] font-semibold uppercase leading-none tracking-[0.06em] text-white transition hover:bg-[#3f4f92] active:scale-[0.98]"
-            >
-              Continue
-            </button>
-            <span className="min-w-0" aria-hidden />
-          </div>
+      <div className="fixed inset-x-0 bottom-0 z-20 flex h-[calc(90px+env(safe-area-inset-bottom,0px))] items-center border-t border-[rgba(23,23,23,0.12)] bg-white px-4 shadow-[0_-4px_24px_-12px_rgba(23,23,23,0.06)]">
+        <div className="mx-auto grid w-full max-w-lg grid-cols-[minmax(0,4.5rem)_1fr_minmax(0,4.5rem)] items-center gap-2 sm:max-w-xl">
+          <button
+            type="button"
+            className="justify-self-start rounded-full px-1 py-2 text-left text-sm text-[rgba(23,23,23,0.45)] transition hover:text-[rgba(23,23,23,0.65)]"
+            onClick={onRestart}
+          >
+            Restart
+          </button>
+          <button
+            type="button"
+            onClick={onOpenPaywall}
+            className="justify-self-center flex h-[50px] w-[min(239px,calc(100vw-2rem))] items-center justify-center rounded-[25px] bg-[#485AA3] text-[17px] font-semibold uppercase leading-none tracking-[0.06em] text-white transition hover:bg-[#3f4f92] active:scale-[0.98]"
+          >
+            Continue
+          </button>
+          <span className="min-w-0" aria-hidden />
         </div>
-      </QuizBottomActionPortal>
+      </div>
     </section>
   );
 }
