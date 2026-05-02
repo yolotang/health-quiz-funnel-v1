@@ -1,6 +1,6 @@
 # Quiz Funnel — Local Polish & Reference Fidelity (Design Spec)
 
-**Status:** Draft → Pending user sign-off  
+**Status:** Approved (2026-05-02) — implementation plan in `docs/superpowers/plans/2026-05-02-quiz-funnel-local-polish.md`  
 **Date:** 2026-05-02  
 **Scope:** Local-first implementation quality (no deployment in this phase).  
 **Primary reference:** [BetterMe-style quiz funnel](https://betterme-pilates.com/first-page-brand-palette?flow=2117) — used for rhythm, density, typography, spacing, and motion **fidelity**.
@@ -99,4 +99,4 @@
 
 ## 9. Sign-off
 
-- [ ] User reviewed this file and approves proceeding to **implementation plan** (`writing-plans`).
+- [x] User reviewed this file and approves proceeding to **implementation plan** (`writing-plans`).
