@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { quizBottomPrimaryButtonClass } from "@/components/common/quizCtaClasses";
 import { cmToFeetInches, feetInchesToCm, kgToLb, lbToKg } from "@/lib/units";
 import type { QuizData, UnitSystem } from "@/types/quiz";
 
@@ -276,7 +277,7 @@ export function StepBodyData({ data, mode, onUpdate, onNext }: StepBodyDataProps
           type="button"
           onClick={onNext}
           disabled={!canNext}
-          className="pointer-events-auto w-max rounded-full bg-[#485AA3] px-10 py-2.5 text-[17px] font-semibold uppercase tracking-[0.06em] text-white transition enabled:hover:bg-[#3f4f92] enabled:active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
+          className={quizBottomPrimaryButtonClass}
         >
           Next step
         </button>

@@ -9,6 +9,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { quizBottomPrimaryButtonClass } from "@/components/common/quizCtaClasses";
 import { kgToLb } from "@/lib/units";
 import type { ReportData, UnitSystem } from "@/types/quiz";
 
@@ -234,7 +235,7 @@ export function StepReport({ report, unit, onOpenPaywall, onRestart }: StepRepor
           <button
             type="button"
             onClick={onOpenPaywall}
-            className="justify-self-center w-max rounded-full bg-[#485AA3] px-10 py-2.5 text-[17px] font-semibold uppercase tracking-[0.06em] text-white transition hover:bg-[#3f4f92] active:scale-[0.98]"
+            className={`justify-self-center ${quizBottomPrimaryButtonClass}`}
           >
             Continue
           </button>

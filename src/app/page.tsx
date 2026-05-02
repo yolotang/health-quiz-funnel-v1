@@ -363,13 +363,14 @@ export default function Home() {
         className={`relative mx-auto w-full ${isAnalyzingStep ? "max-w-full" : isReportStep ? "max-w-5xl" : "mt-6 max-w-[552px]"
           }`}
       >
+        {/* Opacity-only: `y`/`scale` add `transform` on this ancestor and break `position:fixed` footers inside steps */}
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStep}
-            initial={{ opacity: 0, y: 18, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -12, scale: 0.98 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.28, ease: "easeOut" }}
           >
             {stepContent}
           </motion.div>

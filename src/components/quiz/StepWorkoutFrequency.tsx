@@ -1,3 +1,4 @@
+import { quizBottomPrimaryButtonClass } from "@/components/common/quizCtaClasses";
 import { OptionCard } from "@/components/common/OptionCard";
 import {
   CoffeeOutlined,
@@ -63,7 +64,7 @@ export function StepWorkoutFrequency({
           type="button"
           onClick={onNext}
           disabled={!value}
-          className="pointer-events-auto w-max rounded-full bg-[#485AA3] px-10 py-2.5 text-[17px] font-semibold uppercase tracking-[0.06em] text-white transition enabled:hover:bg-[#3f4f92] enabled:active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
+          className={quizBottomPrimaryButtonClass}
         >
           Start analysis
         </button>
