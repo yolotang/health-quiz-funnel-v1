@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { quizBottomPrimaryButtonClass } from "@/components/common/quizCtaClasses";
+import { QuizBottomActionPortal } from "@/components/common/QuizBottomActionPortal";
 import { cmToFeetInches, feetInchesToCm, kgToLb, lbToKg } from "@/lib/units";
 import type { QuizData, UnitSystem } from "@/types/quiz";
 
@@ -271,17 +271,18 @@ export function StepBodyData({ data, mode, onUpdate, onNext }: StepBodyDataProps
         ) : null}
       </div>
 
-      {/* BetterMe-style: fixed bottom strip, centered pill CTA (not full-width) */}
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[90] flex h-[calc(90px+env(safe-area-inset-bottom,0px))] items-center justify-center border-t border-[rgba(23,23,23,0.12)] bg-white px-4 shadow-[0_-4px_24px_-12px_rgba(23,23,23,0.06)]">
-        <button
-          type="button"
-          onClick={onNext}
-          disabled={!canNext}
-          className={quizBottomPrimaryButtonClass}
-        >
-          Next step
-        </button>
-      </div>
+      <QuizBottomActionPortal>
+        <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[90] flex h-[calc(90px+env(safe-area-inset-bottom,0px))] items-center justify-center border-t border-[rgba(23,23,23,0.12)] bg-white px-4 shadow-[0_-4px_24px_-12px_rgba(23,23,23,0.06)]">
+          <button
+            type="button"
+            onClick={onNext}
+            disabled={!canNext}
+            className="pointer-events-auto flex h-[50px] w-[min(239px,calc(100vw-2rem))] shrink-0 items-center justify-center rounded-[25px] bg-[#485AA3] text-[17px] font-semibold uppercase leading-none tracking-[0.06em] text-white transition enabled:hover:bg-[#3f4f92] enabled:active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            Next step
+          </button>
+        </div>
+      </QuizBottomActionPortal>
     </section>
   );
 }
