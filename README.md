@@ -51,8 +51,8 @@ npm run build
 3. 构建命令使用默认：`next build`
 4. 部署完成后获取线上链接
 
-- GitHub 仓库链接：`<请替换为你的仓库 URL>`
-- 在线预览地址：`<请替换为你的 Vercel URL>`
+- GitHub 仓库链接：`https://github.com/yolotang/health-quiz-funne`
+- 在线预览地址：`https://health-quiz-funnel-v1.vercel.app/`
 
 ## AI 使用说明
 
