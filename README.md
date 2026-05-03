@@ -51,20 +51,21 @@ npm run build
 3. 构建命令使用默认：`next build`
 4. 部署完成后获取线上链接
 
-- GitHub 仓库链接：`https://github.com/yolotang/health-quiz-funne`
+- GitHub 仓库链接：`https://github.com/yolotang/health-quiz-funnel-v1`
 - 在线预览地址：`https://health-quiz-funnel-v1.vercel.app/`
 
 ## AI 使用说明
 
 - **使用工具**：Cursor（AI 编码协作）
 - **AI 主要产出**：
-  - 问卷流程页面骨架与组件拆分
-  - Zustand 状态模型与持久化逻辑
+  - 搭建基础页面骨架
+  - 组件拆分
+  - Zustand 状态持久化的基础逻辑
   - Step4 动效与 Step5 趋势图基础实现
 - **手动优化部分**：
-  - 交互节奏与视觉层级微调
-  - 校验边界与步骤回退逻辑
-  - 文案、样式细节与移动端观感优化
+  - 重新梳理了 Step1 到 Step5 的强串联逻辑
+  - 补充了数据完整性校验，避免刷新页面后状态异常导致流程卡住；
+  - 文案、交互样式细节与移动端观感等不断优化
 
 ## 目录结构
 
