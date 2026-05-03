@@ -1,12 +1,11 @@
 "use client";
 
-import { ArrowLeftOutlined, MenuOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 
 interface TopNavProps {
   brand?: string;
   onBack?: () => void;
   showBack?: boolean;
-  showMenu?: boolean;
   title?: string;
   currentStep?: number;
   totalSteps?: number;
@@ -19,7 +18,6 @@ export function TopNav({
   brand = "Quiz-Funnel",
   onBack,
   showBack = true,
-  showMenu = true,
   title,
   totalSteps = 5,
   progress = 0,
@@ -61,17 +59,7 @@ export function TopNav({
         ) : null}
       </div>
 
-      {showMenu ? (
-        <button
-          type="button"
-          className="inline-flex h-12 w-12 items-center justify-center justify-self-end rounded-full border border-[rgba(23,23,23,0.46)] bg-transparent text-[#171717] transition hover:border-transparent hover:bg-[rgba(23,23,23,0.06)]"
-          aria-label="Menu"
-        >
-          <MenuOutlined className="text-lg" />
-        </button>
-      ) : (
-        <div className="h-12 w-12 justify-self-end" />
-      )}
+      <div className="h-12 w-12 justify-self-end" aria-hidden />
 
 
       {showProgress ? (

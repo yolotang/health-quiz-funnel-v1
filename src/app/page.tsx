@@ -272,10 +272,6 @@ export default function Home() {
             report={reportForDisplay}
             unit={quizData.unit}
             onOpenPaywall={() => setPaywallOpen(true)}
-            onRestart={() => {
-              setPaywallOpen(false);
-              resetAll();
-            }}
           />
         );
       default:
@@ -356,7 +352,6 @@ export default function Home() {
             totalSteps={5}
             progress={progress}
             showProgress
-            showMenu
           />
         </div>
       ) : null}

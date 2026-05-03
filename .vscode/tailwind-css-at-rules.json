@@ -1,0 +1,33 @@
+{
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@theme",
+      "description": "Tailwind CSS v4：把自定义变量注册到主题（可与 inline 等修饰符连用）。由 tailwindcss PostCSS 处理。"
+    },
+    {
+      "name": "@utility",
+      "description": "Tailwind CSS v4：自定义工具类。"
+    },
+    {
+      "name": "@variant",
+      "description": "Tailwind CSS v4：自定义变体。"
+    },
+    {
+      "name": "@custom-variant",
+      "description": "Tailwind CSS v4：自定义变体简写。"
+    },
+    {
+      "name": "@plugin",
+      "description": "Tailwind CSS v4：加载插件。"
+    },
+    {
+      "name": "@config",
+      "description": "Tailwind CSS v4：引用配置文件。"
+    },
+    {
+      "name": "@source",
+      "description": "Tailwind CSS v4：指定内容扫描路径。"
+    }
+  ]
+}

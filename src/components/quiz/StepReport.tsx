@@ -17,7 +17,6 @@ interface StepReportProps {
   report: ReportData;
   unit: UnitSystem;
   onOpenPaywall: () => void;
-  onRestart: () => void;
 }
 
 function formatWeight(kg: number, unit: UnitSystem): string {
@@ -27,7 +26,7 @@ function formatWeight(kg: number, unit: UnitSystem): string {
   return `${kgToLb(kg).toFixed(1)} lbs`;
 }
 
-export function StepReport({ report, unit, onOpenPaywall, onRestart }: StepReportProps) {
+export function StepReport({ report, unit, onOpenPaywall }: StepReportProps) {
   const dotGlowId = `reportGoalDotGlow-${useId().replace(/:/g, "")}`;
   const [goalAnchor, setGoalAnchor] = useState<{ cx: number; cy: number } | null>(null);
 
@@ -228,24 +227,11 @@ export function StepReport({ report, unit, onOpenPaywall, onRestart }: StepRepor
         </div>
       </motion.div>
 
-      <div className="fixed inset-x-0 bottom-0 z-30 flex h-[calc(90px+env(safe-area-inset-bottom,0px))] items-center border-t border-[rgba(23,23,23,0.12)] bg-white px-4 shadow-[0_-4px_24px_-12px_rgba(23,23,23,0.06)] sm:px-6 lg:px-[60px]">
-        <div className="relative mx-auto h-full w-full max-w-5xl">
-          <button
-            type="button"
-            className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full py-2 pr-2 text-left text-sm text-[rgba(23,23,23,0.45)] transition hover:text-[rgba(23,23,23,0.65)]"
-            onClick={onRestart}
-          >
-            Restart
+      <div className="fixed inset-x-0 bottom-0 z-30 flex h-[calc(90px+env(safe-area-inset-bottom,0px))] items-center justify-center border-t border-[rgba(23,23,23,0.12)] bg-white px-4 shadow-[0_-4px_24px_-12px_rgba(23,23,23,0.06)] sm:px-6 lg:px-[60px]">
+        <div className="flex w-full max-w-5xl justify-center">
+          <button type="button" onClick={onOpenPaywall} className="quiz-footer-primary-cta">
+            Continue
           </button>
-          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-            <button
-              type="button"
-              onClick={onOpenPaywall}
-              className="quiz-footer-primary-cta"
-            >
-              Continue
-            </button>
-          </div>
         </div>
       </div>
     </section>
