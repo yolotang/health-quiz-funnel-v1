@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { ANALYSIS_DURATION_MS } from "@/lib/calculation";
 
 const messages = [
   "Crunching your BMI...",
@@ -10,7 +11,6 @@ const messages = [
   "Polishing your results...",
 ];
 
-const DURATION_MS = 3500;
 const RING_SIZE = 168;
 const STROKE = 10;
 const R = (RING_SIZE - STROKE) / 2;
@@ -27,7 +27,7 @@ export function StepAnalyzing({ startedAt }: StepAnalyzingProps) {
   useEffect(() => {
     const interval = window.setInterval(() => {
       const currentElapsed = Date.now() - startedAt;
-      const next = Math.min(100, (currentElapsed / DURATION_MS) * 100);
+      const next = Math.min(100, (currentElapsed / ANALYSIS_DURATION_MS) * 100);
       setProgress(next);
     }, 50);
     return () => window.clearInterval(interval);
@@ -74,9 +74,6 @@ export function StepAnalyzing({ startedAt }: StepAnalyzingProps) {
         <p className="text-xs font-medium tracking-[0.12em] text-[rgba(23,23,23,0.45)]">
           ANALYZING
         </p>
-        <h2 className="mt-2 text-[1.375rem] font-semibold leading-snug tracking-tight text-[#171717] sm:text-2xl">
-          Hang tight
-        </h2>
         <p className="mt-1.5 text-[13px] text-[rgba(23,23,23,0.5)]">
           We&apos;re preparing your personalized report
         </p>

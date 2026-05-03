@@ -47,7 +47,9 @@ export function TopNav({
         >
           <ArrowLeftOutlined className="text-lg" />
         </button>
-        <div className="min-w-0 flex-1">
+        <div
+          className={`min-w-0 flex-1 ${title ? "hidden sm:block" : ""}`}
+        >
           <p className="truncate text-[clamp(1.125rem,4vw,1.75rem)] font-semibold leading-none tracking-[-0.02em] text-[rgba(23,23,23)]">
             {brand}
           </p>
@@ -73,7 +75,7 @@ export function TopNav({
 
 
       {showProgress ? (
-        <div className="absolute bottom-0 left-0 right-0 flex h-0.5 gap-[2px]">
+        <div className="absolute bottom-0 left-0 right-0 flex h-1 gap-[2px]">
           {Array.from({ length: safeTotalSteps }).map((_, index) => (
             <div key={index} className="relative h-full flex-1 bg-[rgba(23,23,23,0.14)]">
               <div

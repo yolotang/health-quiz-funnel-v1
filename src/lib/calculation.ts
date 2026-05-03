@@ -9,12 +9,32 @@
  */
 import type { FitnessGoal, ReportData, WorkoutFrequency } from "@/types/quiz";
 
-const getBmiCategory = (bmi: number): string => {
+/** Step 4 分析页强制等待（毫秒）；`page` 定时器与 `StepAnalyzing` 圆环共用此值。 */
+export const ANALYSIS_DURATION_MS = 3500;
+
+/** BMI 分类标签 */
+export type BmiCategoryLabel = "Underweight" | "Normal" | "Overweight" | "Obese";
+
+/** 根据 BMI 计算分类标签 */
+export function getBmiCategory(bmi: number): BmiCategoryLabel {
   if (bmi < 18.5) return "Underweight";
   if (bmi < 24) return "Normal";
   if (bmi < 28) return "Overweight";
   return "Obese";
-};
+}
+
+/** 计算 BMI */
+export function computeBmi(weightKg: number, heightCm: number): number {
+  const hM = heightCm / 100;
+  return weightKg / (hM * hM);
+}
+
+/** 健康体重带（BMI 18.5–24），以身高为参数，返回体重范围（kg） */
+export function healthyWeightRangeKg(heightCm: number): { minKg: number; maxKg: number } {
+  const heightM = heightCm / 100;
+  const h2 = heightM * heightM;
+  return { minKg: 18.5 * h2, maxKg: 24 * h2 };
+}
 
 const getWeeklyProgressKg = (frequency: WorkoutFrequency | null): number => {
   switch (frequency) {
@@ -60,8 +80,7 @@ export const buildReportData = (params: {
   age: number | null;
 }): ReportData => {
   const { weightKg, targetWeightKg, heightCm, workoutFrequency, goal, age } = params;
-  const heightM = heightCm / 100;
-  const bmi = weightKg / (heightM * heightM);
+  const bmi = computeBmi(weightKg, heightCm);
   const bmiCategory = getBmiCategory(bmi);
 
   const totalDelta = Math.abs(weightKg - targetWeightKg); // 计算当前体重与目标体重之差

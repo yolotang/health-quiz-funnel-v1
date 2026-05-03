@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { startTransition, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { TopNav } from "@/components/common/TopNav";
 import { StepAnalyzing } from "@/components/quiz/StepAnalyzing";
 import { StepBasicInfo } from "@/components/quiz/StepBasicInfo";
@@ -8,7 +8,7 @@ import { StepBodyData } from "@/components/quiz/StepBodyData";
 import { StepReport } from "@/components/quiz/StepReport";
 import { StepWorkoutFrequency } from "@/components/quiz/StepWorkoutFrequency";
 import { SubscriptionModal } from "@/components/quiz/SubscriptionModal";
-import { buildReportData } from "@/lib/calculation";
+import { ANALYSIS_DURATION_MS, buildReportData } from "@/lib/calculation";
 import { useQuizStore } from "@/store/quiz-store";
 
 const AUTO_ADVANCE_DELAY_MS = 220;
@@ -28,7 +28,6 @@ export default function Home() {
     resetAll,
   } = useQuizStore();
 
-  /** 旧版 localStorage 里没有 chartCurve 时，用当前问卷数据静默补全，避免让用户清缓存 */
   const reportForDisplay = useMemo(() => {
     if (!reportData) return null;
     if (reportData.chartCurve?.length) return reportData;
@@ -55,7 +54,7 @@ export default function Home() {
         window.clearTimeout(autoAdvanceTimerRef.current);
       }
       autoAdvanceTimerRef.current = window.setTimeout(() => {
-        setCurrentStep(nextStep);
+        startTransition(() => setCurrentStep(nextStep));
         autoAdvanceTimerRef.current = null;
       }, AUTO_ADVANCE_DELAY_MS);
     },
@@ -71,7 +70,7 @@ export default function Home() {
     [],
   );
 
-  // If persist.storage failed to init (e.g. certain SSR paths), `onRehydrateStorage` never runs — unblock UI.
+
   useEffect(() => {
     const p = useQuizStore.persist;
     if (!p) {
@@ -86,7 +85,6 @@ export default function Home() {
     });
   }, []);
 
-  // Last resort: some browsers/extensions can stall persist callbacks — avoid infinite splash.
   useEffect(() => {
     const id = window.setTimeout(() => {
       if (!useQuizStore.getState().hasHydrated) {
@@ -100,7 +98,7 @@ export default function Home() {
   useEffect(() => {
     if (currentStep === 8 && analysisStartedAt) {
       const elapsed = Date.now() - analysisStartedAt;
-      const remaining = Math.max(0, 3500 - elapsed);
+      const remaining = Math.max(0, ANALYSIS_DURATION_MS - elapsed);
       const timer = window.setTimeout(() => {
         completeAnalysis();
       }, remaining);
@@ -112,61 +110,66 @@ export default function Home() {
     if (currentStep !== 9) return;
     if (!reportData || reportData.chartCurve?.length) return;
     if (!reportForDisplay?.chartCurve?.length) return;
-    setReportData(reportForDisplay);
+    startTransition(() => setReportData(reportForDisplay));
   }, [currentStep, reportData, reportForDisplay, setReportData]);
 
   useEffect(() => {
     if (!hasHydrated) return;
 
-    const step = Number(currentStep);
-    if (!Number.isFinite(step) || step < 1 || step > 9) {
-      setCurrentStep(1);
-      return;
-    }
+    const patchStep = (s: number) => startTransition(() => setCurrentStep(s));
 
-    // Step 8 requires a timer anchor; otherwise the UI renders but never completes.
-    if (step === 8 && !analysisStartedAt) {
-      setCurrentStep(7);
-      return;
-    }
+    const id = requestAnimationFrame(() => {
+      const step = Number(currentStep);
+      if (!Number.isFinite(step) || step < 1 || step > 9) {
+        patchStep(1);
+        return;
+      }
 
-    if (step === 1) return;
+      if (step === 8 && !analysisStartedAt) {
+        patchStep(7);
+        return;
+      }
 
-    if (step >= 2 && !quizData.gender) {
-      setCurrentStep(1);
-      return;
-    }
-    if (step >= 3 && !quizData.goal) {
-      setCurrentStep(2);
-      return;
-    }
-    if (step >= 4 && !quizData.age) {
-      setCurrentStep(3);
-      return;
-    }
-    if (step >= 5 && !quizData.heightCm) {
-      setCurrentStep(4);
-      return;
-    }
-    if (step >= 6 && !quizData.weightKg) {
-      setCurrentStep(5);
-      return;
-    }
-    if (step >= 7 && !quizData.targetWeightKg) {
-      setCurrentStep(6);
-      return;
-    }
-    if (step >= 8 && !quizData.workoutFrequency) {
-      setCurrentStep(7);
-      return;
-    }
-    if (step >= 9 && !reportData) {
-      setCurrentStep(8);
-      return;
-    }
-    if (step > 9) {
-      setCurrentStep(9);
-    }
+      if (step === 1) return;
+
+      if (step >= 2 && !quizData.gender) {
+        patchStep(1);
+        return;
+      }
+      if (step >= 3 && !quizData.goal) {
+        patchStep(2);
+        return;
+      }
+      if (step >= 4 && !quizData.age) {
+        patchStep(3);
+        return;
+      }
+      if (step >= 5 && !quizData.heightCm) {
+        patchStep(4);
+        return;
+      }
+      if (step >= 6 && !quizData.weightKg) {
+        patchStep(5);
+        return;
+      }
+      if (step >= 7 && !quizData.targetWeightKg) {
+        patchStep(6);
+        return;
+      }
+      if (step >= 8 && !quizData.workoutFrequency) {
+        patchStep(7);
+        return;
+      }
+      if (step >= 9 && !reportData) {
+        patchStep(8);
+        return;
+      }
+      if (step > 9) {
+        patchStep(9);
+      }
+    });
+
+    return () => cancelAnimationFrame(id);
   }, [analysisStartedAt, currentStep, hasHydrated, quizData, reportData, setCurrentStep]);
 
   const stepContent = useMemo(() => {
@@ -339,7 +342,7 @@ export default function Home() {
 
   return (
     <div
-      className={`relative min-h-screen bg-white ${isAnalyzingStep ? "" : "pt-[88px]"}`}
+      className={`relative min-h-screen bg-white max-sm:min-h-[100dvh] ${isAnalyzingStep ? "" : "pt-[88px]"}`}
     >
       {!isAnalyzingStep ? (
         <div
@@ -359,13 +362,10 @@ export default function Home() {
       ) : null}
 
       <main
-        className={`relative mx-auto w-full ${isAnalyzingStep ? "max-w-full" : isReportStep ? "max-w-5xl" : "mt-6 max-w-[552px]"
+        className={`relative mx-auto w-full min-w-0 ${isAnalyzingStep ? "max-w-full" : isReportStep ? "max-w-5xl px-4 sm:px-6 lg:px-[60px]" : "mt-6 max-w-[552px] px-4 sm:px-0"
           }`}
       >
-        {/* 只用 opacity 动画、不用 transform，避免 fixed 底栏被「困」在动画层里 */}
-        <div key={currentStep} className="quiz-step-enter">
-          {stepContent}
-        </div>
+        <div key={currentStep}>{stepContent}</div>
       </main>
 
       <SubscriptionModal open={paywallOpen} onClose={() => setPaywallOpen(false)} />

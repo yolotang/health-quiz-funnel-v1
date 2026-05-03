@@ -16,6 +16,8 @@ export interface QuizData {
   weightKg: number | null;
   targetWeightKg: number | null;
   workoutFrequency: WorkoutFrequency | null;
+  /** 健康问卷同意（身高 / 体重步骤） */
+  healthOnboardingConsent: boolean;
 }
 
 export interface ReportData {
@@ -23,6 +25,6 @@ export interface ReportData {
   bmiCategory: string;
   weeksToGoal: number;
   targetDateLabel: string;
-  /** 平滑曲线采样点：时间戳 + kg；旧版持久化数据可能缺失 */
+  /** 图表样本（时间戳 + 体重）；可能缺失在旧版持久化快照中 */
   chartCurve?: Array<{ atMs: number; weightKg: number }>;
 }

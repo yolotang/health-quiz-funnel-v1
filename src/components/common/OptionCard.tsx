@@ -28,17 +28,17 @@ export function OptionCard({
       className={`mx-auto flex min-h-[72px] w-full max-w-[552px] items-center rounded-3xl border px-5 py-4 text-left shadow-sm transition-all duration-200 sm:min-h-[80px] sm:px-6 ${selected ? "border-transparent bg-[#EFF1F4]" : "border-[rgba(23,23,23,0.07)] bg-transparent hover:border-[rgba(23,23,23,0.12)]"
         } ${className}`}
     >
-      <div className="flex w-full items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
+      <div className="flex w-full min-w-0 items-center justify-between gap-2 sm:gap-4">
+        <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-4">
           {icon ? (
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[rgba(23,23,23,0.06)] text-[22px] text-[rgba(23,23,23,0.62)]">
               {icon}
             </span>
           ) : null}
-          <div>
-            <p className="text-[18px] font-semibold leading-tight text-[#171717]">{title}</p>
+          <div className="min-w-0 text-left">
+            <p className="break-words text-[18px] font-semibold leading-tight text-[#171717]">{title}</p>
             {description ? (
-              <p className="mt-0.5 text-sm text-[rgba(23,23,23,0.56)]">{description}</p>
+              <p className="mt-0.5 break-words text-sm text-[rgba(23,23,23,0.56)]">{description}</p>
             ) : null}
           </div>
         </div>

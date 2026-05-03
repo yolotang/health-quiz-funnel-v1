@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import { motion } from "framer-motion";
 import {
   Area,
   AreaChart,
@@ -55,8 +56,13 @@ export function StepReport({ report, unit, onOpenPaywall, onRestart }: StepRepor
       : report.targetDateLabel;
 
   return (
-    <section className="relative min-h-screen bg-white pb-[calc(90px+env(safe-area-inset-bottom,0px))] text-[#171717]">
-      <div className="mx-auto w-full max-w-lg px-5 pt-6 sm:max-w-xl sm:px-6 sm:pt-8">
+    <section className="relative bg-white pb-[calc(104px+env(safe-area-inset-bottom,0px))] text-[#171717] sm:pb-[calc(96px+env(safe-area-inset-bottom,0px))]">
+      <motion.div
+        initial={{ opacity: 0, y: 18, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+        className="mx-auto w-full max-w-lg px-5 pt-6 sm:max-w-xl sm:px-6 sm:pt-8"
+      >
         <div className="text-center">
           <h1 className="text-[1.25rem] font-semibold leading-snug tracking-tight text-[#171717] sm:text-[1.375rem] md:text-[1.75rem]">
             The last plan you&apos;ll ever need to get in shape
@@ -69,7 +75,7 @@ export function StepReport({ report, unit, onOpenPaywall, onRestart }: StepRepor
           </p>
 
           <div
-            className="step-report-chart relative mt-8 w-full rounded-2xl bg-neutral-100 px-2 py-4 sm:px-3 sm:py-5"
+            className="step-report-chart relative mt-8 w-full rounded-2xl bg-neutral-100 px-3 py-4 sm:px-5 sm:py-5"
             onMouseDown={(e) => e.preventDefault()}
           >
             <div className="relative h-[260px] min-h-[260px] w-full min-w-0 sm:h-[280px] sm:min-h-[280px]">
@@ -77,7 +83,7 @@ export function StepReport({ report, unit, onOpenPaywall, onRestart }: StepRepor
                 <AreaChart
                   accessibilityLayer={false}
                   data={series}
-                  margin={{ top: 28, right: 4, bottom: 22, left: 0 }}
+                  margin={{ top: 28, right: 36, bottom: 22, left: 6 }}
                 >
                   <defs>
                     <filter id={dotGlowId} x="-80%" y="-80%" width="260%" height="260%">
@@ -220,25 +226,26 @@ export function StepReport({ report, unit, onOpenPaywall, onRestart }: StepRepor
             *Based on the data of users who log their progress in the app. Consult your physician first. The chart is a non-customized illustration and results may vary
           </p>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="fixed inset-x-0 bottom-0 z-20 flex h-[calc(90px+env(safe-area-inset-bottom,0px))] items-center border-t border-[rgba(23,23,23,0.12)] bg-white px-4 shadow-[0_-4px_24px_-12px_rgba(23,23,23,0.06)]">
-        <div className="mx-auto grid w-full max-w-lg grid-cols-[minmax(0,4.5rem)_1fr_minmax(0,4.5rem)] items-center gap-2 sm:max-w-xl">
+      <div className="fixed inset-x-0 bottom-0 z-30 flex h-[calc(90px+env(safe-area-inset-bottom,0px))] items-center border-t border-[rgba(23,23,23,0.12)] bg-white px-4 shadow-[0_-4px_24px_-12px_rgba(23,23,23,0.06)] sm:px-6 lg:px-[60px]">
+        <div className="relative mx-auto h-full w-full max-w-5xl">
           <button
             type="button"
-            className="justify-self-start rounded-full px-1 py-2 text-left text-sm text-[rgba(23,23,23,0.45)] transition hover:text-[rgba(23,23,23,0.65)]"
+            className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-full py-2 pr-2 text-left text-sm text-[rgba(23,23,23,0.45)] transition hover:text-[rgba(23,23,23,0.65)]"
             onClick={onRestart}
           >
             Restart
           </button>
-          <button
-            type="button"
-            onClick={onOpenPaywall}
-            className="justify-self-center flex h-[50px] w-[min(239px,calc(100vw-2rem))] items-center justify-center rounded-[25px] bg-[#485AA3] text-[17px] font-semibold uppercase leading-none tracking-[0.06em] text-white transition hover:bg-[#3f4f92] active:scale-[0.98]"
-          >
-            Continue
-          </button>
-          <span className="min-w-0" aria-hidden />
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <button
+              type="button"
+              onClick={onOpenPaywall}
+              className="quiz-footer-primary-cta"
+            >
+              Continue
+            </button>
+          </div>
         </div>
       </div>
     </section>

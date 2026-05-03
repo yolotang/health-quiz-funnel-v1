@@ -16,7 +16,7 @@ interface QuizState {
   updateQuizData: (payload: Partial<QuizData>) => void;
   startAnalysis: () => void;
   completeAnalysis: () => void;
-  /** 补齐旧版持久化里缺少的 chartCurve 等 */
+
   setReportData: (reportData: ReportData | null) => void;
   resetAll: () => void;
 }
@@ -30,6 +30,7 @@ const initialQuizData: QuizData = {
   weightKg: null,
   targetWeightKg: null,
   workoutFrequency: null,
+  healthOnboardingConsent: false,
 };
 
 export const useQuizStore = create<QuizState>()(
@@ -99,9 +100,7 @@ export const useQuizStore = create<QuizState>()(
         reportData: state.reportData,
         analysisStartedAt: state.analysisStartedAt,
       }),
-      // Success: (state from get(), undefined). Failure: (undefined, error).
-      // Avoid synchronous useQuizStore.getState() — persist can run during create() before
-      // `export const useQuizStore` is assigned (TDZ ReferenceError).
+
       onRehydrateStorage: () => (state, error) => {
         if (error) {
           console.warn("[quiz-funnel] Could not restore saved progress:", error);
